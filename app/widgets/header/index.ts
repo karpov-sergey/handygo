@@ -1,1 +1,1 @@
-// export { default as AppHeader } from "./ui/Header.vue"
+export { default as AppHeader } from './ui/Header.vue';
