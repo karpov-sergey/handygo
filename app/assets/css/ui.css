@@ -3,7 +3,6 @@ button,
     cursor: pointer;
 }
 
-/* Disabled — без pointer */
 button:disabled,
 [data-ui-button][aria-disabled="true"] {
     cursor: not-allowed;
