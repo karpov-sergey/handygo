@@ -5,38 +5,47 @@ const route = useRoute();
 
 const items = computed<NavigationMenuItem[]>(() => [
 	{
-		label: 'Docs',
-		to: '/docs/getting-started',
-		active: route.path.startsWith('/docs/getting-started'),
+		label: 'Home',
+		to: '/',
 	},
 	{
-		label: 'Components',
-		to: '/docs/components',
-		active: route.path.startsWith('/docs/components'),
-	},
-	{
-		label: 'Figma',
-		to: 'https://go.nuxt.com/figma-ui',
-		target: '_blank',
-	},
-	{
-		label: 'Releases',
-		to: 'https://github.com/nuxt/ui/releases',
-		target: '_blank',
+		label: 'Offers',
+		to: '/offers',
+		active: route.path.startsWith('/offers'),
 	},
 ]);
 </script>
 
 <template>
-	<UHeader>
+	<UHeader mode="slideover">
 		<template #left>
-			<NuxtLink to="/" class="text-2xl font-black"> HandyGo </NuxtLink>
+			<NuxtLink to="/" class="text-2xl"> HandyGo </NuxtLink>
 		</template>
+
+		<UNavigationMenu
+			variant="link"
+			highlight
+			:items="items"
+			:ui="{ link: 'hover:text-primary data-[active]:font-bold' }"
+		/>
 
 		<template #right>
 			<UColorModeButton />
 			<UButton>Login</UButton>
-			<UNavigationMenu :items="items" />
+		</template>
+
+		<template #body>
+			<UNavigationMenu
+				class="-mx-2.5"
+				variant="link"
+				orientation="vertical"
+				highlight
+				:items="items"
+				:ui="{
+					link: 'mb-2',
+					linkLabel: 'pb-1 group-data-[active]:border-b border-primary',
+				}"
+			/>
 		</template>
 	</UHeader>
 </template>

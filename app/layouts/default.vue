@@ -5,10 +5,10 @@ import { AppFooter } from '~/widgets/footer';
 
 <template>
 	<div class="min-h-dvh flex flex-col">
-		<main class="flex-1">
-			<AppHeader />
+		<AppHeader />
+		<main class="py-4 flex-1">
 			<slot />
-			<AppFooter />
 		</main>
+		<AppFooter />
 	</div>
 </template>
