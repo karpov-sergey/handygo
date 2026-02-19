@@ -1,9 +1,13 @@
 export default defineAppConfig({
-	// ui: {
-	// 	colors: {
-	// 		primary: 'golden',
-	// 		secondary: 'purple',
-	// 		neutral: 'zinc',
-	// 	},
-	// },
+	ui: {
+		button: {
+			variants: {
+				size: {
+					md: {
+						base: 'px-4',
+					},
+				},
+			},
+		},
+	},
 });

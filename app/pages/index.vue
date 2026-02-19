@@ -2,25 +2,62 @@
 
 <template>
 	<UContainer>
-		<div class="text-center space-y-4 py-10">
-			<h1 class="text-3xl font-bold">HandyGo</h1>
-			<p class="text-gray-500">
-				Добро пожаловать! Найдите подходящее предложение.
-			</p>
-			<UButton>Button</UButton>
-			<div></div>
-			<UFileUpload
-				position="inside"
-				layout="list"
-				multiple
-				label="Drop your images here"
-				description="SVG, PNG, JPG or GIF (max. 2MB)"
-				class="w-96"
-				:ui="{
-					base: 'min-h-48',
-				}"
-			/>
-			<UIcon name="i-lucide-lightbulb" class="size-14 bg-yellow-400" />
-		</div>
+		<UPageHero
+			title="NandyGo - Find your specialist"
+			description="Find your specialist in your area, fast and easy"
+			:links="[
+				{
+					label: 'Get started',
+					to: 'https://ui.nuxt.com/docs/getting-started/installation/nuxt',
+					target: '_blank',
+					trailingIcon: 'i-lucide-arrow-right',
+					size: 'xl',
+				},
+			]"
+		/>
+
+		<UPageSection
+			id="features"
+			title="Everything you need to feel safe at home"
+			description="Start with a solid foundation. This template includes all the essentials for building production-ready applications with Nuxt UI's powerful component system."
+			:features="[
+				{
+					icon: 'i-lucide-rocket',
+					title: 'Production-ready from day one',
+					description:
+						'Pre-configured with TypeScript, ESLint, Tailwind CSS, and all the best practices. Focus on building features, not setting up tooling.',
+				},
+				{
+					icon: 'i-lucide-palette',
+					title: 'Beautiful by default',
+					description:
+						'Leveraging Nuxt UI\'s design system with automatic dark mode, consistent spacing, and polished components that look great out of the box.',
+				},
+				{
+					icon: 'i-lucide-zap',
+					title: 'Lightning fast',
+					description:
+						'Optimized for performance with SSR/SSG support, automatic code splitting, and edge-ready deployment. Your users will love the speed.',
+				},
+				{
+					icon: 'i-lucide-blocks',
+					title: '100+ components included',
+					description:
+						'Access Nuxt UI\'s comprehensive component library. From forms to navigation, everything is accessible, responsive, and customizable.',
+				},
+				{
+					icon: 'i-lucide-code-2',
+					title: 'Developer experience first',
+					description:
+						'Auto-imports, hot module replacement, and TypeScript support. Write less boilerplate and ship more features.',
+				},
+				{
+					icon: 'i-lucide-shield-check',
+					title: 'Built for scale',
+					description:
+						'Enterprise-ready architecture with proper error handling, SEO optimization, and security best practices built-in.',
+				},
+			]"
+		/>
 	</UContainer>
 </template>
