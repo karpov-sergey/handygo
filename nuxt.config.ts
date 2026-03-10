@@ -5,6 +5,13 @@ export default defineNuxtConfig({
 		compatibilityVersion: 4,
 	},
 	devtools: { enabled: false },
-	modules: ['@nuxt/ui'],
+	modules: ['@nuxt/ui', '@nuxtjs/supabase'],
+	supabase: {
+		redirectOptions: {
+			login: '/login',
+			callback: '/confirm',
+			exclude: ['/', '/signup', '/auth/login', '/auth/signup'],
+		},
+	},
 	css: ['~/assets/css/main.css', '~/assets/css/ui.css'],
 });

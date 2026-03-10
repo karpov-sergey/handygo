@@ -4,14 +4,19 @@
 	<div>
 		<UContainer>
 			<UPageHero
-				title="NandyGo - Find your specialist"
+				title="HandyGo - Find your specialist"
 				description="Find your specialist in your area, fast and easy"
 				:links="[
 					{
-						label: 'Get started',
-						to: 'https://ui.nuxt.com/docs/getting-started/installation/nuxt',
-						target: '_blank',
-						trailingIcon: 'i-lucide-arrow-right',
+						label: 'Want to find a specialist',
+						to: '/signup',
+						trailingIcon: 'i-lucide-search',
+						size: 'xl',
+					},
+					{
+						label: 'Want to find an order',
+						to: '/signup',
+						trailingIcon: 'i-lucide-briefcase-business',
 						size: 'xl',
 					},
 				]"
