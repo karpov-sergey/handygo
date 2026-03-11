@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { NavigationMenuItem } from '@nuxt/ui';
+import type { NavigationMenuItem, DropdownMenuItem } from '@nuxt/ui';
 
 const { t } = useI18n();
 const route = useRoute();
@@ -18,6 +18,27 @@ const items = computed<NavigationMenuItem[]>(() => [
 		active: route.path.startsWith('/offers'),
 	},
 ]);
+
+const profileItems = computed<DropdownMenuItem[]>(() => [
+	[
+		{
+			label: user.value?.email || t('profile.title'),
+			icon: 'i-lucide-user',
+			to: '/profile',
+		},
+	],
+	[
+		{
+			label: t('auth.logout'),
+			icon: 'i-lucide-log-out',
+			onSelect: logout,
+		},
+	],
+]);
+
+const avatarAlt = computed(
+	() => user.value?.user_metadata?.full_name || user.value?.email || ''
+);
 
 const logout = async () => {
 	await supabase.auth.signOut();
@@ -38,29 +59,8 @@ const logout = async () => {
 		<template #right>
 			<UColorModeButton />
 			<template v-if="user">
-				<UDropdownMenu
-					:items="[
-						[
-							{
-								label: user.email || t('profile.title'),
-								icon: 'i-lucide-user',
-								to: '/profile',
-							},
-						],
-						[
-							{
-								label: t('auth.logout'),
-								icon: 'i-lucide-log-out',
-								onSelect: logout,
-							},
-						],
-					]"
-				>
-					<UAvatar
-						:alt="user.user_metadata?.full_name || user.email"
-						size="sm"
-						class="cursor-pointer"
-					/>
+				<UDropdownMenu :items="profileItems">
+					<UAvatar :alt="avatarAlt" size="sm" class="cursor-pointer" />
 				</UDropdownMenu>
 			</template>
 			<template v-else>
