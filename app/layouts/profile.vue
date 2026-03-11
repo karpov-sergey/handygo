@@ -25,20 +25,20 @@ const items = ref<NavigationMenuItem[][]>([
 <template>
 	<div class="min-h-dvh flex flex-col">
 		<ProfileHeader />
-		<main class="flex-1">
-			<UContainer class="h-full">
-				<UPage>
+		<main class="flex-1 flex flex-col">
+			<UContainer class="flex-1 flex flex-col">
+				<UPage class="flex-1">
 					<template #left>
-						<UPageAside class="py-4 border-r border-default">
+						<div class="min-h-full py-3 lg:border-r border-default">
 							<UNavigationMenu
 								orientation="vertical"
 								variant="link"
 								:items="items"
 								:ui="{
-									link: 'flex gap-3',
+									link: 'flex gap-3 pl-0 mb-1',
 								}"
 							/>
-						</UPageAside>
+						</div>
 					</template>
 					<template #default>
 						<div class="py-4">
