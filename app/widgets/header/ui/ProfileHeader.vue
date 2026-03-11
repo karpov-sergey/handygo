@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import type { NavigationMenuItem } from '@nuxt/ui';
-
-const route = useRoute();
-
 const user = useSupabaseUser();
 const supabase = useSupabaseClient();
 const router = useRouter();
@@ -11,18 +7,6 @@ const logout = async () => {
 	await supabase.auth.signOut();
 	await router.push('/');
 };
-
-const items = computed<NavigationMenuItem[]>(() => [
-	{
-		label: 'Home',
-		to: '/',
-	},
-	{
-		label: 'Offers',
-		to: '/offers',
-		active: route.path.startsWith('/offers'),
-	},
-]);
 </script>
 
 <template>
@@ -30,13 +14,6 @@ const items = computed<NavigationMenuItem[]>(() => [
 		<template #left>
 			<NuxtLink to="/" class="text-2xl font-bold"> HandyGo </NuxtLink>
 		</template>
-
-		<UNavigationMenu
-			variant="link"
-			highlight
-			:items="items"
-			:ui="{ link: 'hover:text-primary data-[active]:font-bold' }"
-		/>
 
 		<template #right>
 			<UColorModeButton />
