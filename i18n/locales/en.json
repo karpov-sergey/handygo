@@ -1,0 +1,24 @@
+{
+	"nav": {
+		"home": "Home",
+		"offers": "Offers"
+	},
+	"auth": {
+		"login": "Log in",
+		"signup": "Sign Up",
+		"logout": "Log out"
+	},
+	"profile": {
+		"title": "Profile",
+		"settings": "Settings"
+	},
+	"settings": {
+		"title": "Settings",
+		"language": "Language",
+		"languageDescription": "Select your preferred language"
+	},
+	"languages": {
+		"en": "English",
+		"pl": "Polish"
+	}
+}

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const { t } = useI18n();
 const user = useSupabaseUser();
 const supabase = useSupabaseClient();
 const router = useRouter();
@@ -22,14 +23,19 @@ const logout = async () => {
 					:items="[
 						[
 							{
-								label: user.email || 'Profile',
+								label: user.email || t('profile.title'),
 								icon: 'i-lucide-user',
 								to: '/profile',
+							},
+							{
+								label: t('profile.settings'),
+								icon: 'i-lucide-settings',
+								to: '/profile/settings',
 							},
 						],
 						[
 							{
-								label: 'Log out',
+								label: t('auth.logout'),
 								icon: 'i-lucide-log-out',
 								onSelect: logout,
 							},
@@ -44,8 +50,8 @@ const logout = async () => {
 				</UDropdownMenu>
 			</template>
 			<template v-else>
-				<UButton to="/login" variant="ghost"> Log in </UButton>
-				<UButton to="/signup"> Sign Up </UButton>
+				<UButton to="/login" variant="ghost"> {{ $t('auth.login') }} </UButton>
+				<UButton to="/signup"> {{ $t('auth.signup') }} </UButton>
 			</template>
 		</template>
 

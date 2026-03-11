@@ -1,43 +1,40 @@
 <script setup lang="ts">
 import type { NavigationMenuItem } from '@nuxt/ui';
 
+const { t } = useI18n();
 const route = useRoute();
-
 const user = useSupabaseUser();
 const supabase = useSupabaseClient();
 const router = useRouter();
+
+const items = computed<NavigationMenuItem[]>(() => [
+	{
+		label: t('nav.home'),
+		to: '/',
+	},
+	{
+		label: t('nav.offers'),
+		to: '/offers',
+		active: route.path.startsWith('/offers'),
+	},
+]);
 
 const logout = async () => {
 	await supabase.auth.signOut();
 	await router.push('/');
 };
-
-const items = computed<NavigationMenuItem[]>(() => [
-	{
-		label: 'Home',
-		to: '/',
-	},
-	{
-		label: 'Offers',
-		to: '/offers',
-		active: route.path.startsWith('/offers'),
-	},
-]);
 </script>
-
 <template>
 	<UHeader mode="slideover">
 		<template #left>
 			<NuxtLink to="/" class="text-2xl font-bold"> HandyGo </NuxtLink>
 		</template>
-
 		<UNavigationMenu
 			variant="link"
 			highlight
 			:items="items"
 			:ui="{ link: 'hover:text-primary data-[active]:font-bold' }"
 		/>
-
 		<template #right>
 			<UColorModeButton />
 			<template v-if="user">
@@ -45,14 +42,14 @@ const items = computed<NavigationMenuItem[]>(() => [
 					:items="[
 						[
 							{
-								label: user.email || 'Profile',
+								label: user.email || t('profile.title'),
 								icon: 'i-lucide-user',
 								to: '/profile',
 							},
 						],
 						[
 							{
-								label: 'Log out',
+								label: t('auth.logout'),
 								icon: 'i-lucide-log-out',
 								onSelect: logout,
 							},
@@ -67,11 +64,11 @@ const items = computed<NavigationMenuItem[]>(() => [
 				</UDropdownMenu>
 			</template>
 			<template v-else>
-				<UButton to="/login" variant="ghost"> Log in </UButton>
-				<UButton to="/signup"> Sign Up </UButton>
+				<LanguageSwitcher />
+				<UButton to="/login" variant="ghost"> {{ $t('auth.login') }} </UButton>
+				<UButton to="/signup"> {{ $t('auth.signup') }} </UButton>
 			</template>
 		</template>
-
 		<template #body>
 			<UNavigationMenu
 				class="-mx-2.5"
@@ -87,5 +84,4 @@ const items = computed<NavigationMenuItem[]>(() => [
 		</template>
 	</UHeader>
 </template>
-
 <style scoped></style>
