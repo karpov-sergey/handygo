@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { NavigationMenuItem, DropdownMenuItem } from '@nuxt/ui';
+import { signOut } from '~/features/auth';
 
 const { t } = useI18n();
 const route = useRoute();
@@ -41,7 +42,7 @@ const avatarAlt = computed(
 );
 
 const logout = async () => {
-	await supabase.auth.signOut();
+	await signOut(supabase);
 	await router.push('/');
 };
 </script>

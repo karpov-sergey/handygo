@@ -6,7 +6,21 @@
 	"auth": {
 		"login": "Zaloguj się",
 		"signup": "Zarejestruj się",
-		"logout": "Wyloguj się"
+		"logout": "Wyloguj się",
+		"loginTitle": "Logowanie",
+		"loginDescription": "Wprowadź dane, aby uzyskać dostęp do konta",
+		"signupTitle": "Rejestracja",
+		"signupDescription": "Wprowadź swoje dane, aby utworzyć konto",
+		"emailPlaceholder": "E-mail",
+		"passwordPlaceholder": "Hasło",
+		"namePlaceholder": "Imię",
+		"showPassword": "Pokaż hasło",
+		"noAccount": "Nie masz konta?",
+		"hasAccount": "Masz już konto?",
+		"successSignup": "Sprawdź e-mail, aby potwierdzić rejestrację",
+		"errorGeneric": "Coś poszło nie tak",
+		"errorTitle": "Błąd",
+		"successTitle": "Sukces"
 	},
 	"profile": {
 		"title": "Profil",
@@ -20,5 +34,11 @@
 	"languages": {
 		"en": "Angielski",
 		"pl": "Polski"
+	},
+	"home": {
+		"heroTitle": "HandyGo - Znajdź swojego specjalistę",
+		"heroDescription": "Znajdź specjalistę w swojej okolicy szybko i łatwo",
+		"findSpecialist": "Chcę znaleźć specjalistę",
+		"findOrder": "Chcę znaleźć zlecenie"
 	}
 }

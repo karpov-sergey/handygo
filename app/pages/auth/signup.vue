@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import * as z from 'zod';
 import type { FormError } from '@nuxt/ui';
+import { signUp } from '~/features/auth';
 
 definePageMeta({
 	layout: 'auth',
 	alias: '/signup',
 });
 
+const { t } = useI18n();
 const supabase = useSupabaseClient();
 const toast = useToast();
 
@@ -39,26 +41,22 @@ const onPasswordShow = () => {
 
 const onSubmit = async () => {
 	isLoading.value = true;
+
 	try {
-		await supabase.auth.signUp({
-			email: userData.email!,
-			password: userData.password!,
-			options: {
-				data: {
-					full_name: userData.name,
-				},
-			},
-		});
+		await signUp(supabase, userData.email!, userData.password!, userData.name!);
 
 		toast.add({
-			title: 'Success',
-			description: 'Check your email for the confirmation link',
+			title: t('auth.successTitle'),
+			description: t('auth.successSignup'),
 			color: 'success',
 		});
-	} catch (error: any) {
+	} catch (error: unknown) {
+		const message =
+			error instanceof Error ? error.message : t('auth.errorGeneric');
+
 		toast.add({
-			title: 'Error',
-			description: error.message || 'Something went wrong',
+			title: t('auth.errorTitle'),
+			description: message,
 			color: 'error',
 		});
 	} finally {
@@ -68,17 +66,15 @@ const onSubmit = async () => {
 
 const validate = (state: Partial<signupSchema>): FormError[] => {
 	const errors: FormError[] = [];
-	// if (state.current && state.new && state.current === state.new) {
-	// 	errors.push({ name: 'new', message: 'Passwords must be different' });
-	// }
+
 	return errors;
 };
 </script>
 
 <template>
 	<UPageCard
-		title="Sign up"
-		description="Enter your information to create an account"
+		:title="$t('auth.signupTitle')"
+		:description="$t('auth.signupDescription')"
 		variant="subtle"
 	>
 		<UForm
@@ -92,7 +88,7 @@ const validate = (state: Partial<signupSchema>): FormError[] => {
 				<UInput
 					v-model="userData.name"
 					type="text"
-					placeholder="Name"
+					:placeholder="$t('auth.namePlaceholder')"
 					class="w-full"
 					autocomplete="name"
 				/>
@@ -102,7 +98,7 @@ const validate = (state: Partial<signupSchema>): FormError[] => {
 				<UInput
 					v-model="userData.email"
 					type="email"
-					placeholder="Email"
+					:placeholder="$t('auth.emailPlaceholder')"
 					class="w-full"
 					autocomplete="email"
 				/>
@@ -112,7 +108,7 @@ const validate = (state: Partial<signupSchema>): FormError[] => {
 				<UInput
 					v-model="userData.password"
 					:type="isPasswordVisible ? 'text' : 'password'"
-					placeholder="Password"
+					:placeholder="$t('auth.passwordPlaceholder')"
 					class="w-full"
 					autocomplete="new-password"
 				>
@@ -121,7 +117,7 @@ const validate = (state: Partial<signupSchema>): FormError[] => {
 							variant="link"
 							size="sm"
 							:icon="isPasswordVisible ? 'i-lucide-eye-closed' : 'i-lucide-eye'"
-							aria-label="Show password"
+							:aria-label="$t('auth.showPassword')"
 							type="button"
 							@click.stop.prevent="onPasswordShow"
 						/>
@@ -130,10 +126,14 @@ const validate = (state: Partial<signupSchema>): FormError[] => {
 			</UFormField>
 
 			<div class="flex items-center justify-between">
-				<UButton label="Sign Up" type="submit" :loading="isLoading" />
+				<UButton
+					:label="$t('auth.signup')"
+					type="submit"
+					:loading="isLoading"
+				/>
 				<UButton
 					to="/login"
-					label="Already have an account?"
+					:label="$t('auth.hasAccount')"
 					variant="link"
 					size="sm"
 				/>

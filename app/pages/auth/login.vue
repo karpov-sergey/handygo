@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import * as z from 'zod';
+import { signIn } from '~/features/auth';
 
 definePageMeta({
 	layout: 'auth',
 	alias: '/login',
 });
 
+const { t } = useI18n();
 const supabase = useSupabaseClient();
 const toast = useToast();
 const router = useRouter();
@@ -33,16 +35,15 @@ const onSubmit = async () => {
 	isLoading.value = true;
 
 	try {
-		await supabase.auth.signInWithPassword({
-			email: userData.email!,
-			password: userData.password!,
-		});
-
+		await signIn(supabase, userData.email!, userData.password!);
 		await router.push('/');
-	} catch (error: any) {
+	} catch (error: unknown) {
+		const message =
+			error instanceof Error ? error.message : t('auth.errorGeneric');
+
 		toast.add({
-			title: 'Error',
-			description: error.message || 'Something went wrong',
+			title: t('auth.errorTitle'),
+			description: message,
 			color: 'error',
 		});
 	} finally {
@@ -53,8 +54,8 @@ const onSubmit = async () => {
 
 <template>
 	<UPageCard
-		title="Login"
-		description="Enter your credentials to access your account"
+		:title="$t('auth.loginTitle')"
+		:description="$t('auth.loginDescription')"
 		variant="subtle"
 	>
 		<UForm
@@ -67,7 +68,7 @@ const onSubmit = async () => {
 				<UInput
 					v-model="userData.email"
 					type="email"
-					placeholder="Email"
+					:placeholder="$t('auth.emailPlaceholder')"
 					class="w-full"
 					autocomplete="email"
 				/>
@@ -77,7 +78,7 @@ const onSubmit = async () => {
 				<UInput
 					v-model="userData.password"
 					:type="isPasswordVisible ? 'text' : 'password'"
-					placeholder="Password"
+					:placeholder="$t('auth.passwordPlaceholder')"
 					class="w-full"
 					autocomplete="current-password"
 				>
@@ -86,7 +87,7 @@ const onSubmit = async () => {
 							variant="link"
 							size="sm"
 							:icon="isPasswordVisible ? 'i-lucide-eye-closed' : 'i-lucide-eye'"
-							aria-label="Show password"
+							:aria-label="$t('auth.showPassword')"
 							type="button"
 							@click.stop.prevent="onPasswordShow"
 						/>
@@ -95,10 +96,10 @@ const onSubmit = async () => {
 			</UFormField>
 
 			<div class="flex items-center justify-between">
-				<UButton label="Login" type="submit" :loading="isLoading" />
+				<UButton :label="$t('auth.login')" type="submit" :loading="isLoading" />
 				<UButton
 					to="/signup"
-					label="Don't have an account?"
+					:label="$t('auth.noAccount')"
 					variant="link"
 					size="sm"
 				/>

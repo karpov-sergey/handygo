@@ -6,7 +6,21 @@
 	"auth": {
 		"login": "Log in",
 		"signup": "Sign Up",
-		"logout": "Log out"
+		"logout": "Log out",
+		"loginTitle": "Login",
+		"loginDescription": "Enter your credentials to access your account",
+		"signupTitle": "Sign up",
+		"signupDescription": "Enter your information to create an account",
+		"emailPlaceholder": "Email",
+		"passwordPlaceholder": "Password",
+		"namePlaceholder": "Name",
+		"showPassword": "Show password",
+		"noAccount": "Don't have an account?",
+		"hasAccount": "Already have an account?",
+		"successSignup": "Check your email for the confirmation link",
+		"errorGeneric": "Something went wrong",
+		"errorTitle": "Error",
+		"successTitle": "Success"
 	},
 	"profile": {
 		"title": "Profile",
@@ -20,5 +34,11 @@
 	"languages": {
 		"en": "English",
 		"pl": "Polish"
+	},
+	"home": {
+		"heroTitle": "HandyGo - Find your specialist",
+		"heroDescription": "Find your specialist in your area, fast and easy",
+		"findSpecialist": "Want to find a specialist",
+		"findOrder": "Want to find an order"
 	}
 }
