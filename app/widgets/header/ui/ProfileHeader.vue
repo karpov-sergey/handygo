@@ -1,13 +1,5 @@
 <script setup lang="ts">
-const { t } = useI18n();
 const user = useSupabaseUser();
-const supabase = useSupabaseClient();
-const router = useRouter();
-
-const logout = async () => {
-	await supabase.auth.signOut();
-	await router.push('/');
-};
 </script>
 
 <template>
@@ -19,35 +11,7 @@ const logout = async () => {
 		<template #right>
 			<UColorModeButton />
 			<template v-if="user">
-				<UDropdownMenu
-					:items="[
-						[
-							{
-								label: user.email || t('profile.title'),
-								icon: 'i-lucide-user',
-								to: '/profile',
-							},
-							{
-								label: t('profile.settings'),
-								icon: 'i-lucide-settings',
-								to: '/profile/settings',
-							},
-						],
-						[
-							{
-								label: t('auth.logout'),
-								icon: 'i-lucide-log-out',
-								onSelect: logout,
-							},
-						],
-					]"
-				>
-					<UAvatar
-						:alt="user.user_metadata?.full_name || user.email"
-						size="sm"
-						class="cursor-pointer"
-					/>
-				</UDropdownMenu>
+				<ProfileDropdown />
 			</template>
 			<template v-else>
 				<UButton to="/login" variant="ghost"> {{ $t('auth.login') }} </UButton>
@@ -56,17 +20,7 @@ const logout = async () => {
 		</template>
 
 		<template #body>
-			<UNavigationMenu
-				class="-mx-2.5"
-				variant="link"
-				orientation="vertical"
-				highlight
-				:items="items"
-				:ui="{
-					link: 'mb-2',
-					linkLabel: 'pb-1 group-data-[active]:border-b border-primary',
-				}"
-			/>
+			<NavMenu orientation="vertical" />
 		</template>
 	</UHeader>
 </template>
